@@ -7,7 +7,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/ugurozgen/secret-service-infra.git
+    repoURL: git@github.com:ugurozgen/secret-service-infra.git
     path: charts/root-app
     targetRevision: HEAD
   destination:
