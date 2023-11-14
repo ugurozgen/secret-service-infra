@@ -3,12 +3,12 @@ kind: Application
 metadata:
   name: root-app
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
     repoURL: https://github.com/ugurozgen/secret-service-infra.git
-    path: charts/root-app/
+    path: charts/root-app
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
