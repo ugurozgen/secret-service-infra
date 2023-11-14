@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: grafana
+  name: vault
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: https://https://grafana.github.io/helm-charts
-    chart: grafana
+    repoURL: https://helm.releases.hashicorp.com
+    chart: vault
     targetRevision: 25.3.1
     helm:
       values: |
