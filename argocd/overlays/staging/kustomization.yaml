@@ -10,4 +10,4 @@ patches:
   patch: |-
     - op: replace
       path: /spec/template/spec/containers/0/image
-      value: 382630266647.dkr.ecr.eu-north-1.amazonaws.com/secret-service
+      value: 382630266647.dkr.ecr.eu-north-1.amazonaws.com/secret-service-app:latest

@@ -113,7 +113,7 @@ deploySecretService(){
 # #### KUBECTL for STAGING ####
 # aws eks update-kubeconfig --name ${PROJECT_NAME}-staging --region $AWS_REGION
 
-# deployArgoCD
-# addRepoToArgoCD
+deployArgoCD
+addRepoToArgoCD
 deploySecretService
 
