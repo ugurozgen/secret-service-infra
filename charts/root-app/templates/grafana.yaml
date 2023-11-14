@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://https://grafana.github.io/helm-charts
+    repoURL: git@github.com:ugurozgen/secret-service-infra.git
     chart: grafana
     targetRevision: 25.3.1
     helm:
