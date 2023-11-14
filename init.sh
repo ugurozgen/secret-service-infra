@@ -41,16 +41,17 @@ deployArgoCD(){
     helm repo add argo-cd https://argoproj.github.io/argo-helm
     helm dep update charts/argo-cd/
 
-    helm install argo-cd charts/argo-cd/ --namespace argocd
+    helm  install argo-cd charts/argo-cd/ \
+        --namespace argocd --create-namespace --wait
 
-    kubectl wait deploy argocd-server \
+    kubectl wait deploy argo-cd-argocd-server \
         --timeout=180s \
         --namespace argocd \
         --for=condition=Available=True
-    kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+    kubectl patch svc argo-cd-argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
     # wait until argocd updated
     while true; do
-        ARGO_LOAD_BALANCER=$(kubectl get svc argocd-server \
+        ARGO_LOAD_BALANCER=$(kubectl get svc argo-cd-argocd-server \
             --namespace argocd \
             --output json |
             jq --raw-output '.status.loadBalancer.ingress[0].hostname')
@@ -72,6 +73,8 @@ deployArgoCD(){
         --username=admin \
         --password=$ARGO_PASSWORD
 
+    kubectl create ns monitoring 
+    kubectl create ns vault
     helm template charts/root-app/ | kubectl apply -f -
 }
 
