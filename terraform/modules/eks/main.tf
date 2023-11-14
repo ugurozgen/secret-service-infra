@@ -47,6 +47,26 @@ module "eks" {
       # additional_security_group_ids = [aws_security_group.worker_group_mgmt_one.id]
     }
 
+    green2 = {
+      min_size     = 1
+      max_size     = 2
+      desired_size = 1
+
+      instance_types                = ["t3.small"]
+      capacity_type                 = "ON_DEMAND" # SPOT
+      # additional_security_group_ids = [aws_security_group.worker_group_mgmt_one.id]
+    }
+
+    green3 = {
+      min_size     = 1
+      max_size     = 2
+      desired_size = 1
+
+      instance_types                = ["t3.small"]
+      capacity_type                 = "ON_DEMAND" # SPOT
+      # additional_security_group_ids = [aws_security_group.worker_group_mgmt_one.id]
+    }
+
     # worker-group-2 = {
     #   min_size     = 1
     #   max_size     = 2

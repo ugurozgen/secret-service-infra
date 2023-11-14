@@ -38,10 +38,11 @@ deployStageEKS(){
 }
 
 deployArgoCD(){
-    kubectl create namespace argocd
-    kubectl apply \
-        --namespace argocd \
-        --filename https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+    helm repo add argo-cd https://argoproj.github.io/argo-helm
+    helm dep update charts/argo-cd/
+
+    helm install argo-cd charts/argo-cd/ --namespace argocd
+
     kubectl wait deploy argocd-server \
         --timeout=180s \
         --namespace argocd \
@@ -70,6 +71,8 @@ deployArgoCD(){
         --insecure \
         --username=admin \
         --password=$ARGO_PASSWORD
+
+    helm template charts/root-app/ | kubectl apply -f -
 }
 
 addRepoToArgoCD(){
