@@ -1,0 +1,13 @@
+bases:
+- ../../base
+
+# https://fabianlee.org/2022/04/15/kubernetes-kustomize-transformations-with-patchesjson6902/
+# https://github.com/fabianlee/kustomize-overlays-with-reload/blob/main/overlays/tiny-tools-ds-to-dep/kustomization.yaml
+patches:
+- target:
+    kind: Deployment
+    name: secret-service
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/image
+      value: xxxxx.dkr.ecr.eu-north-1.amazonaws.com/secret-service-app:xxxxx
