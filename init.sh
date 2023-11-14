@@ -6,6 +6,7 @@ export S3_BUCKET=secret-service-infra
 export AWS_REGION=eu-north-1
 export STAGE_DIR=terraform/staging
 export GIT_REPO=git@github.com:ugurozgen/secret-service-infra.git
+export NAMESPACE=secret-service
 
 export TF_VAR_project_name=$PROJECT_NAME
 export TF_VAR_region=$AWS_REGION
@@ -88,11 +89,31 @@ addRepoToArgoCD(){
         --ssh-private-key-path ~/.ssh/$PROJECT_NAME.pem
 }
 
+deploySecretService(){
+    # create secret-service application on Argo CD
+    export NAMESPACE=staging
+    export SERVER=https://kubernetes.default.svc
+    cat argocd/argocd-app.yaml | envsubst | kubectl apply -f -
+
+    while [[ -z $(kubectl get ns secret-service 2>/dev/null) ]]; do sleep 1; done
+
+    while true; do
+        SECRET_SERVICE_LOAD_BALANCER=$(kubectl get svc secret-service \
+            --namespace secret-service \
+            --output json |
+            jq --raw-output '.status.loadBalancer.ingress[0].hostname')
+        [[ "$SECRET_SERVICE_LOAD_BALANCER" != 'null' ]] && break;
+    done
+    echo SECRET_SERVICE_LOAD_BALANCER $SECRET_SERVICE_LOAD_BALANCER
+}
+
 # createS3Bucket
 # deployStageEKS
 
 # #### KUBECTL for STAGING ####
 # aws eks update-kubeconfig --name ${PROJECT_NAME}-staging --region $AWS_REGION
 
-deployArgoCD
-addRepoToArgoCD
+# deployArgoCD
+# addRepoToArgoCD
+deploySecretService
+
