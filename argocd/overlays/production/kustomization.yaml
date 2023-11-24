@@ -10,4 +10,14 @@ patches:
   patch: |-
     - op: replace
       path: /spec/template/spec/containers/0/image
-      value: 382630266647.dkr.ecr.eu-north-1.amazonaws.com/secret-service-app:latest
+      value: $SECRET_SERVICE_APP_IMAGE
+    - op: add
+      path: "/spec/template/spec/containers/0/env/-"
+      value:
+        name: VAULT_ADDR
+        value: "$VAULT_ADDR"
+    - op: add
+      path: "/spec/template/spec/containers/0/env/-"
+      value:
+        name: VAULT_TOKEN
+        value: "$VAULT_TOKEN"

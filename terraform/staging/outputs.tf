@@ -25,3 +25,11 @@ output "eks_cluster_id" {
 output "eks_cluster_endpoint" {
   value = module.eks.cluster_endpoint
 }
+
+output "vault_init_key_id_stg" {
+  value = module.eks.vault_init_key_id_stg
+}
+
+output "vault_init_key_id_prod" {
+  value = module.eks.vault_init_key_id_prod
+}

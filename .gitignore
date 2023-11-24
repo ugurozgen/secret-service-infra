@@ -11,3 +11,4 @@ package-lock.json
 aws-auth-configmap.json
 aws-auth-configmap.yaml
 charts/**/charts
+enc-root-token

@@ -17,3 +17,7 @@ variable "vpc_id" {
 variable "vpc_private_subnets" {
   default = []
 }
+
+variable "ebscsi_policy" {
+  default = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+}

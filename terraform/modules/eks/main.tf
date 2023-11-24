@@ -5,6 +5,12 @@ module "eks" {
 
   cluster_name    = "${var.project_name}-${var.project_env}"
   cluster_version = "1.28"
+  cluster_addons = {
+    aws-ebs-csi-driver = {
+      most_recent = true
+    }
+  }
+
 
   vpc_id     = var.vpc_id # module.vpc.vpc_id
   subnet_ids = var.vpc_private_subnets # module.vpc.private_subnets
@@ -42,9 +48,12 @@ module "eks" {
       max_size     = 2
       desired_size = 1
 
-      instance_types                = ["t3.small"]
+      instance_types                = ["m5.large"]
       capacity_type                 = "ON_DEMAND" # SPOT
       # additional_security_group_ids = [aws_security_group.worker_group_mgmt_one.id]
+      
+      # Needed by the aws-ebs-csi-driver
+      iam_role_additional_policies = ["arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"]
     }
 
     green2 = {
@@ -52,9 +61,12 @@ module "eks" {
       max_size     = 2
       desired_size = 1
 
-      instance_types                = ["t3.small"]
+      instance_types                = ["m5.large"]
       capacity_type                 = "ON_DEMAND" # SPOT
       # additional_security_group_ids = [aws_security_group.worker_group_mgmt_one.id]
+
+      # Needed by the aws-ebs-csi-driver
+      iam_role_additional_policies = ["arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"]
     }
 
     green3 = {
@@ -62,9 +74,12 @@ module "eks" {
       max_size     = 2
       desired_size = 1
 
-      instance_types                = ["t3.small"]
+      instance_types                = ["m5.large"]
       capacity_type                 = "ON_DEMAND" # SPOT
       # additional_security_group_ids = [aws_security_group.worker_group_mgmt_one.id]
+
+      # Needed by the aws-ebs-csi-driver
+      iam_role_additional_policies = ["arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"]
     }
 
     # worker-group-2 = {
