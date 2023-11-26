@@ -18,8 +18,12 @@ spec:
     spec:
       containers:
         - name: secret-service
-          image: ${IMAGE}
+          image: 382630266647.dkr.ecr.eu-north-1.amazonaws.com/secret-service-app:latest
           ports:
             - containerPort: 8080
               name: server
-      env:
+          env:
+            - name: VAULT_ADDR
+              value: http://a95ae176648b54761a4121ec9e46d245-495271892.eu-north-1.elb.amazonaws.com:8200
+            - name: VAULT_TOKEN
+              value: hvs.TDovAzVh6XUeDQ5nB5u7rDMo

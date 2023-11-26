@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: ${GIT_REPO}
     targetRevision: HEAD
-    path: argocd/overlays/${NAMESPACE}
+    path: argocd/secret-service-app/${NAMESPACE}
   destination: 
     server: ${SERVER}
     namespace: gitops-multienv

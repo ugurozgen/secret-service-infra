@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: secret-service
+  namespace: secret-service
+  labels:
+    app: secret-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: secret-service
+  template:
+    metadata:
+      labels:
+        app: secret-service
+    spec:
+      containers:
+        - name: secret-service
+          image: 382630266647.dkr.ecr.eu-north-1.amazonaws.com/secret-service-app:latest
+          ports:
+            - containerPort: 8080
+              name: server
+          env:
+            - name: VAULT_ADDR
+              value: http://a95ae176648b54761a4121ec9e46d245-495271892.eu-north-1.elb.amazonaws.com:8200
+            - name: VAULT_TOKEN
+              value: hvs.TDovAzVh6XUeDQ5nB5u7rDMo

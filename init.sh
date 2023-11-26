@@ -83,7 +83,7 @@ deployVaultToStaging(){
 
     export VAULT_ADDR=http://$VAULT_LOAD_BALANCER:8200 
     export VAULT_TOKEN=$VAULT_ROOT_TOKEN 
-    cat argocd/overlays/staging/kustomization-temp.yaml | envsubst > argocd/overlays/staging/kustomization.yaml
+    cat argocd/secret-service-app/staging/deployment.template | envsubst > argocd/secret-service-app/staging/deployment.yaml
 }
 
 deployArgoCDToStaging(){
@@ -143,7 +143,7 @@ deploySecretServiceStage(){
     export NAMESPACE=staging
     export SERVER=https://kubernetes.default.svc
     kubectl config use-context $PROJECT_NAME-staging
-    cat argocd/argocd-app.yaml | envsubst | kubectl apply -f -
+    cat argocd/secret-service-app/application.yaml | envsubst | kubectl apply -f -
 
     while [[ -z $(kubectl get ns secret-service 2>/dev/null) ]]; do sleep 1; done
 
