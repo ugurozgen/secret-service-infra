@@ -24,6 +24,6 @@ spec:
               name: server
           env:
             - name: VAULT_ADDR
-              value: http://a95ae176648b54761a4121ec9e46d245-495271892.eu-north-1.elb.amazonaws.com:8200
+              value: http://aaa667a61fbbe4c48bf85dbf3516c74b-2041780496.eu-north-1.elb.amazonaws.com:8200
             - name: VAULT_TOKEN
-              value: hvs.TDovAzVh6XUeDQ5nB5u7rDMo
+              value: hvs.ylafHENDOG3fWDhiFmR71Ykj
