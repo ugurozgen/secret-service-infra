@@ -80,8 +80,11 @@ deployVaultToStaging(){
 
     kubectl exec -it vault-0 -n vault -- vault login $VAULT_ROOT_TOKEN  > /dev/null
     kubectl exec -it vault-0 -n vault -- vault secrets enable kv-v2
-}
 
+    export VAULT_ADDR=http://$VAULT_LOAD_BALANCER:8200 
+    export VAULT_TOKEN=$VAULT_ROOT_TOKEN 
+    cat argocd/overlays/staging/kustomization-temp.yaml | envsubst > argocd/overlays/staging/kustomization.yaml
+}
 
 deployArgoCDToStaging(){
     kubectl create namespace argocd
@@ -156,7 +159,6 @@ deploySecretServiceStage(){
 
     while [[ -z $(curl $SECRET_SERVICE_LOAD_BALANCER 2>/dev/null) ]]; do sleep 1; done
     echo STAGING READY "http://$SECRET_SERVICE_LOAD_BALANCER" is available
-
 }
 
 deployProdEKS(){
