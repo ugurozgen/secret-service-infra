@@ -7,7 +7,7 @@ patches:
     name: secret-service
   patch: |-
     - op: replace
-      path: /spec/template/spec/containers/1/image
+      path: /spec/template/spec/containers/0/image
       value: 382630266647.dkr.ecr.eu-north-1.amazonaws.com/secret-service-app:latest
     - op: add
       path: "/spec/template/spec/containers/1/env/-"
